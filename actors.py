@@ -122,7 +122,10 @@ class Skeleton(Creatures):
                       "an",
                       "thrax",
                       "hem",
-                      "may"]
+                      "may",
+                      "gor",
+                      "go",
+                      "roth"]
     MAX_NAME_SIZE = 2
 
     def __init__(self, name, level=1, att=10, par=8):

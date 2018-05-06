@@ -6,10 +6,10 @@ from actors import Toad, Skeleton, Dragon
 class Room:
     MAX_DIFF = 3
 
-    MONST_BY_DIFF = [[Toad, Skeleton],
+    MONST_BY_DIFF = [[Toad],
                      [Toad, Skeleton],
                      [Skeleton, Dragon],
-                     [Skeleton, Dragon]]
+                     [Dragon]]
 
     DESC_BY_DIFF = ["remind you of kindergarten",
                     "seems to be a good source of training",

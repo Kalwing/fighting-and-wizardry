@@ -7,9 +7,20 @@ import random
 
 def main():
     al.print_header(40, "Fighting & Wizardry")
-    rooms = createRoomChain(5)
+
+    heroName = al.input_("What's your name valiant wizard ? ")
+    hero = Wizard(heroName)
+
+    try:
+        dungeonSize = int(al.input_("How many rooms are you ready to face ? "))
+    except ValueError:
+        al.print_warning("Wrong input. Length set to default: 5")
+        dungeonSize = 5
+    if dungeonSize <= 0:
+        al.print_warning("That's not much. Length set to default: 5")
+        dungeonSize = 5
+    rooms = createRoomChain(dungeonSize)
     actualRoom = rooms[0]
-    hero = Wizard("Gandalf")
 
     al.print_result(str(actualRoom))
 
@@ -77,7 +88,7 @@ def createRoomChain(size: int):
     rooms = []
     last = None
     for i in range(size):
-        difficulty = random.randint(i//Room.MAX_DIFF, i)
+        difficulty = min(Room.MAX_DIFF, random.randint(i//Room.MAX_DIFF, i))
         room = Room(difficulty=difficulty, prec=last)
         rooms.append(room)
         last = Room
