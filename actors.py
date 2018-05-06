@@ -3,6 +3,24 @@ import applib as al
 
 
 class Creatures:
+    NAME_PARTICLES = ["to",
+                      "ma",
+                      "yv",
+                      "ve",
+                      "er",
+                      "ric",
+                      "dar",
+                      "gen"]
+    MAX_NAME_SIZE = 2
+
+    @classmethod
+    def nameGenerator(cls):
+        r = ""
+        for i in range(random.randint(1, cls.MAX_NAME_SIZE)):
+            partId = random.randint(0, len(cls.NAME_PARTICLES) - 1)
+            r += cls.NAME_PARTICLES[partId]
+        return r.capitalize()
+
     def __init__(self, name, level=1, att=7, par=8):
         self.name = name
         self.level = level
@@ -12,8 +30,10 @@ class Creatures:
         self.life = self.getMaxLife()
 
     def __repr__(self):
-        return "{:s} of level {:d} | life:{:d}".format(self.name, self.level,
-                                                       self.getLife())
+        level = ("{:s} a {:s} of level {:d}"
+                 .format(self.name, self.__class__.__name__, self.level))
+        life = " life:{:d}".format(self.life)
+        return "{:<35s}|{:>10s}".format(level, life)
 
     def getMaxAttack(self):
         return self.baseAttack + 2 * self.level
@@ -24,9 +44,6 @@ class Creatures:
     def getMaxLife(self):
         return (self.baseAttack + self.baseParry) // 2 + 2 * self.level
 
-    def getLife(self):
-        return self.life
-
     def getParry(self):
         return random.randint(0, self.getMaxParry())
 
@@ -34,7 +51,7 @@ class Creatures:
         return random.randint(0, self.getMaxAttack())
 
     def isAlive(self):
-        return self.getLife() > 0
+        return self.life > 0
 
     def attack(self, creature):
         if creature.isAlive():
@@ -61,7 +78,7 @@ class Creatures:
             al.print_warning("It's dead.")
 
     def loseLife(self, n: int):
-        self.life = max(0, self.getLife() - n)
+        self.life = max(0, self.life - n)
 
     def increaseExp(self, n: int):
         self.exp += n
@@ -74,5 +91,66 @@ class Creatures:
 
 
 class Wizard(Creatures):
+
+    def getMaxLife(self):
+        return (self.baseAttack + self.baseParry) // 2 + 4 * self.level
+
     def __init__(self, name, level=1, att=15, par=15):
+        super().__init__(name, level, att, par)
+
+
+class Toad(Creatures):
+    NAME_PARTICLES = ["gu",
+                      "bo",
+                      "ga",
+                      "be",
+                      "a",
+                      "bug",
+                      "wog",
+                      "blo"]
+    MAX_NAME_SIZE = 3
+
+    def __init__(self, name, level=1, att=4, par=2):
+        super().__init__(name, level, att, par)
+
+
+class Skeleton(Creatures):
+    NAME_PARTICLES = ["kre",
+                      "vox",
+                      "vor",
+                      "tak",
+                      "an",
+                      "thrax",
+                      "hem",
+                      "may"]
+    MAX_NAME_SIZE = 2
+
+    def __init__(self, name, level=1, att=10, par=8):
+        super().__init__(name, level, att, par)
+
+
+class Dragon(Creatures):
+    NAME_PARTICLES = ["Faf",
+                      "ner",
+                      "an",
+                      "cal",
+                      "ag",
+                      "on",
+                      "drog",
+                      "chry",
+                      "so",
+                      "phy",
+                      "lax",
+                      "glae",
+                      "dr",
+                      "er",
+                      "rol",
+                      "saph"
+                      "i",
+                      "ra",
+                      "eld",
+                      "rax"]
+    MAX_NAME_SIZE = 4
+
+    def __init__(self, name, level=1, att=25, par=20):
         super().__init__(name, level, att, par)
