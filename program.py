@@ -27,7 +27,7 @@ def main():
             except ValueError:
                 al.print_warning("Wrong input.")
                 continue
-            if not (0 < selectedCreatureId < len(monsters)):
+            if not (0 <= selectedCreatureId < len(monsters)):
                 al.print_warning("This creature doesn't exist.")
                 continue
 
